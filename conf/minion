@@ -1,0 +1,9 @@
+file_roots:
+  base:
+    - /srv/salt/bootstrap-formula/formula
+
+file_client: local
+
+pillar_roots:
+  base:
+    - /srv/salt/bootstrap-formula/pillar

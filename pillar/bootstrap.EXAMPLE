@@ -1,0 +1,45 @@
+# Example Salt Pillar for the formula available for bootstrapping
+# All possible keys are listed, and most of the values here are the
+# defaults in the formula (except the example git repos).
+#
+
+
+# for the `salt.file_roots.single` formula
+file_roots_single:
+  user: root
+  ssh_key_path: /root/.ssh/id_rsa
+  roots_root: /srv/salt
+  url: git@github.com:saltstack-formulas/salt-formula.git
+  rev: develop
+  
+
+# for the `salt.file_roots.deb` formula
+file_roots_deb:
+  install:
+    salt-formula:
+      url: http://ubuntu.example.com/salt-formula-v2015-09-15.deb
+      checksum: FFAADD
+  absent:
+    - old-formula-v2015-07-20
+  active:
+    - salt-formula
+
+
+# for the `salt.file_roots.git` formula
+file_roots_git:
+  # run the git checkout as this user
+  user: root
+  # SSH key for git checkouts
+  ssh_key_path: /root/.ssh/id_rsa
+  # file_roots source repos
+  install:
+    salt-formula:
+      url: git@github.com:saltstack-formulas/salt-formula.git
+      rev: master
+    nginx-formula:
+      url: git@github.com:saltstack-formulas/nginx-formula.git
+      rev: master
+  # no trailing slash
+  roots_root: /srv/salt-git
+  active:
+    - salt-formula
