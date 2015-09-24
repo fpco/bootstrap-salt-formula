@@ -7,5 +7,5 @@ salt-call --local                                           \
           --file-root   /srv/salt-bootstrap-formula/formula \
           --pillar-root /srv/salt-bootstrap-formula/pillar  \
           --config-dir  /srv/salt-bootstrap-formula/conf    \
-          state.sls salt.file_roots
+          state.highstate
 ```
