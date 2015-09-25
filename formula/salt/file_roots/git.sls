@@ -1,8 +1,7 @@
-# formula to seed Salt's file_roots with a bunch of git repos
-# assume there is other formula that will take care of configuring
-# SaltStack master/minion with these file_roots, just focus on git checkout
+# formula to seed Salt's file_roots with a bunch of git repos, and
+# configure SaltStack master/minion to use these file_roots
 #
-# this formula supports _multiple_ git repos > /srv/salt/
+# this formula supports _multiple_ git repos > /srv/salt-git/
 
 
 # the list of packages to install, expected as a dict with {name: {url/rev}} for
@@ -19,10 +18,6 @@
 {%- set ssh_key_path = salt['pillar.get']('file_roots_git:ssh_key_path', '/root/.ssh/id_rsa') %}
 # where to checkout / install all git-based, packaged formula
 {%- set roots_root = salt['pillar.get']('file_roots_git:roots_root', '/srv/salt-git') %}
-
-
-include:
-  - git
 
 
 # SSH key to use for git checkout
@@ -59,7 +54,6 @@ roots-git-{{ repo }}:
     - require:
         - file: roots-ssh-key
         - file: roots-root-git
-        - pkg: git
 
 {%- endfor %}
 
