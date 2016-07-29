@@ -1,7 +1,7 @@
 # Bootstrap Salt Formula
 
 Opinionated formula to bootstrap other formula for Saltstack. It is very awesome,
-but use it at your own risk.
+but not yet ready for release - use it at your own risk.
 
 
 ## What is this?
