@@ -24,9 +24,6 @@
 roots-ssh-key:
   file.exists:
     - name: {{ ssh_key_path }}
-    - user: {{ user }}
-    - group: {{ user }}
-    - mode: 600
 
 # root path for all file_roots checked out
 roots-root-git:
