@@ -48,6 +48,7 @@ roots-git-{{ repo }}:
     - rev: {{ rev }}
     - target: {{ roots_root }}/{{ repo }}
     - user: {{ user }}
+    - force_reset: True
     - force_fetch: True
     - force_checkout: True
     - identity: {{ ssh_key_path }}
