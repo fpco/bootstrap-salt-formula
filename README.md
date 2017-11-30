@@ -28,11 +28,29 @@ but not yet ready for release - use it at your own risk.
 You'll need Saltstack and git to get going, that's it.
 
 
-### Automated Install
+### Short-Version
+
+```
+wget -O - https://raw.githubusercontent.com/fpco/bootstrap-salt-formula/master/install.sh | sh
+```
+
+### Env Variables
+
+The script will use the following variables, if present:
+
+| Name | purpose | default |
+| ---- | ------- | ------- |
+| `BOOTSTRAP_URL` | base url to raw `install.sls` to download and apply | `https://raw.githubusercontent.com/fpco/bootstrap-salt-formula` |
+| `BOOTSTRAP_BRANCH` | the git branch to checkout when installing the bootstrap formula | `master` |
+| `BOOTSTRAP_TMP_DIR` | the path to download the `install.sls` to | `/tmp/bootstrap` |
+| `BOOTSTRAP_LOG_LEVEL` | maps to `--log-level` | `info` |
+
+
+### Complete Automated Install
 
 For provisioning linux hosts or building images with Packer, here is a method for
-automated systems. Note that the first step is optional and only included for
-demonstration:
+automated systems. Note that how you complete the first step is optional and only
+included for demonstration purposes:
 
 ```
 #!/bin/sh
@@ -54,24 +72,11 @@ service salt-minion stop
 apt-get install -y git
 ###########
 
+# Step 2: install the bootstrap formula
+wget -O - https://raw.githubusercontent.com/fpco/bootstrap-salt-formula/master/install.sh | sh
 
-# Step 2: accept github's SSH key for strict host key verification, git.latest
-# will fail unless this has been done either manually or with salt like this
-salt-call --local                              \
-          state.single ssh_known_hosts.present \
-          name=github.com enc=ssh-rsa          \
-          fingerprint=16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48
-
-
-# Step 3: clone our salt formula to bootstrap salt formula
-salt-call --local                                             \
-          state.single git.latest                             \
-          rev=master                                          \
-          name=git@github.com:fpco/bootstrap-salt-formula.git \
-          target=/srv/bootstrap-salt-formula
-
-
-# Step 4: configure the bootstrap formula
+###########
+# Step 3: configure the bootstrap formula
 # edit this to enter your bootstrap pillar here, or upload during provisioning
 cat <<END_PILLAR > /srv/bootstrap-salt-formula/pillar/bootstrap.sls
 # for the `salt.file_roots.single` formula
@@ -83,8 +88,8 @@ file_roots_single:
   rev: master
 END_PILLAR
 
-
-# Step 5: bootstrap salt formula!
+###########
+# Step 4: bootstrap salt formula!
 salt-call --local                                           \
           --file-root   /srv/bootstrap-salt-formula/formula \
           --pillar-root /srv/bootstrap-salt-formula/pillar  \
@@ -111,7 +116,7 @@ Assuming salt and git are installed, here is a manual setup:
 
 ```
 # install
-git clone git@github.com/fpco/bootstrap-salt-formula /srv/bootstrap-salt-formula
+git clone https://github.com/fpco/bootstrap-salt-formula /srv/bootstrap-salt-formula
 
 # update /srv/bootstrap-salt-formula/pillar/bootstrap.sls to meet your needs
 
