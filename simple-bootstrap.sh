@@ -24,10 +24,8 @@ else
   cat <<END_PILLAR > /srv/bootstrap-salt-formula/pillar/bootstrap.sls
 # for the salt.file_roots.single formula
 file_roots_single:
-  #user: root
-  #ssh_key_path: /root/.ssh/id_rsa
   roots_root: /srv/salt
-  url: git@github.com:fpco/fpco-salt-formula.git
+  url: https://github.com/fpco/fpco-salt-formula
   rev: master
 END_PILLAR
 fi
