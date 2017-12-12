@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -eux
+
 ##########
 # Step 1: Install Saltstack and git
 wget -O bootstrap-salt.sh https://bootstrap.saltstack.com
