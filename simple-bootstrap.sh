@@ -18,7 +18,10 @@ wget -O - https://raw.githubusercontent.com/fpco/bootstrap-salt-formula/master/i
 ###########
 # Step 3: configure the bootstrap formula
 # edit this to enter your bootstrap pillar here, or upload during provisioning
-cat <<END_PILLAR > /srv/bootstrap-salt-formula/pillar/bootstrap.sls
+if [ -n "${BOOTSTRAP_PILLAR_FILE+1}" ]; then
+  mv ${BOOTSTRAP_PILLAR_FILE} /srv/bootstrap-salt-formula/pillar/bootstrap.sls
+else
+  cat <<END_PILLAR > /srv/bootstrap-salt-formula/pillar/bootstrap.sls
 # for the `salt.file_roots.single` formula
 file_roots_single:
   #user: root
@@ -27,7 +30,7 @@ file_roots_single:
   url: git@github.com:fpco/fpco-salt-formula.git
   rev: master
 END_PILLAR
-
+fi
 ###########
 # Step 4: bootstrap salt formula!
 salt-call --local                                           \
