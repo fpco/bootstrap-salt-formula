@@ -22,7 +22,7 @@ if [ -n "${BOOTSTRAP_PILLAR_FILE+1}" ]; then
   mv ${BOOTSTRAP_PILLAR_FILE} /srv/bootstrap-salt-formula/pillar/bootstrap.sls
 else
   cat <<END_PILLAR > /srv/bootstrap-salt-formula/pillar/bootstrap.sls
-# for the `salt.file_roots.single` formula
+# for the salt.file_roots.single formula
 file_roots_single:
   #user: root
   #ssh_key_path: /root/.ssh/id_rsa
