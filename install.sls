@@ -52,7 +52,7 @@ install-salt-formula-bootstrap-formula:
     - require:
         - git: install-salt-formula-bootstrap-formula
     - contents: |
-        #!/bin/sh
+        #!/usr/bin/env sh
         salt-call --local                                 \
                   --config-dir {{ roots_root }}/conf      \
                   --pillar-root {{ roots_root }}/pillar   \
