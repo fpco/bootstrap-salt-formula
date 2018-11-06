@@ -12,6 +12,13 @@
 {%- set cron_minute = salt['pillar.get']('file_roots_bootstrap:cron_minute', '*/5') %}
 {%- set cron_hour = salt['pillar.get']('file_roots_bootstrap:hour', '*') %}
 
+{%- set default_path  = '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin' %}
+{%- set default_shell = '/bin/sh' %}
+
+{%- set path  = salt['pillar.get']('file_roots_bootstrap:path', default_path) %}
+{%- set shell = salt['pillar.get']('file_roots_bootstrap:shell', default_shell) %}
+
+
 {%- if 'git@' in url %}
 # SSH key to use for git checkout
 roots-ssh-key:
@@ -71,3 +78,19 @@ install-salt-formula-bootstrap-formula:
     - identifier: bootstrap-salt-formula
     - require:
         - file: install-salt-formula-bootstrap-formula
+        - cron: root-cron-env-var-PATH
+        - cron: root-cron-env-var-SHELL
+
+# this formula expects PATH to be set in root's cronttab, and might as well set SHELL
+# these can be changed by other formula later.
+root-cron-env-var-PATH:
+  cron.env_present:
+    - name: PATH
+    - user: root
+    - value: "{{ path }}"
+
+root-cron-env-var-SHELL:
+  cron.env_present:
+    - name: SHELL
+    - user: root
+    - value: "{{ shell }}"
