@@ -71,6 +71,7 @@ salt-formula-deb-install-{{ pkg }}:
         - file: salt-formula-deb-pkg-root-path
   cmd.run:
     - name: 'dpkg --install {{ pkg_root }}/{{ pkg }}.deb'
+    - unless: 'dpkg --get-selections | grep {{ pkg }}'
     - require:
         - file: salt-formula-deb-install-{{ pkg }}
 {%- endfor %}
