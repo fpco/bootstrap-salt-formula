@@ -64,7 +64,7 @@ install-salt-formula-bootstrap-formula:
                   --config-dir {{ roots_root }}/conf      \
                   --pillar-root {{ roots_root }}/pillar   \
                   --file-root {{roots_root }}/formula     \
-                  state.highstate
+                  state.highstate queue=True
   cmd.run:
     - name: 'echo "use {{ script_path }} to run the file_roots bootstrap formula"'
     - require:

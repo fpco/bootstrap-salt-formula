@@ -10,6 +10,6 @@ LOG_LEVEL=${BOOTSTRAP_LOG_LEVEL:=info}
 mkdir -p ${TMP_DIR}
 wget -O ${TMP_DIR}/install.sls ${URL}/${BRANCH}/install.sls
 sleep 1
-salt-call --log-level=${LOG_LEVEL} --local --file-root $TMP_DIR state.sls install
+salt-call --log-level=${LOG_LEVEL} --local --file-root $TMP_DIR state.sls install queue=True
 sleep 5
 rm -rf $TMP_DIR

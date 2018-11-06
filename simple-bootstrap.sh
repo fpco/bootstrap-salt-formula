@@ -35,4 +35,4 @@ salt-call --local                                           \
           --file-root   /srv/bootstrap-salt-formula/formula \
           --pillar-root /srv/bootstrap-salt-formula/pillar  \
           --config-dir  /srv/bootstrap-salt-formula/conf    \
-          state.highstate
+          state.highstate queue=True
