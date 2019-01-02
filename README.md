@@ -25,7 +25,19 @@ but not yet ready for release - use it at your own risk.
 
 ## How to Use?
 
-You'll need Saltstack and git to get going, that's it.
+There are a few different "layers" one could use to get started.
+
+There is a helper script that can bootstrap salt before this repo.
+
+There is a helper script for installing this repo.
+
+There is another helper that can tie this all together, or you can install manually
+and use the repo by itself.
+
+Note: Do not use multiple package distribution formula at the same time. Eg, use
+only one at a time: `salt.file_roots.single`, `salt.file_roots.git` or
+`salt.file_roots.deb`. The formula applied in `top.sls` depends on the pillar key
+defined in `pillar/bootstrap.sls`.
 
 
 ### Short-Version
