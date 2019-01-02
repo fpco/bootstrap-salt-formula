@@ -33,6 +33,13 @@ roots-root-git:
     - mode: 750
     - makedirs: True
 
+symlink-srv-salt-active-to-git-root:
+  file.symlink:
+    # note the lack of a trailing slash on the symlink name is intentional
+    - name: /srv/salt-active
+    # point the symlink at salt's file_roots path for deb pkg installed
+    - target: {{ roots_root }}
+
 
 # generate the `git.latest` states for the file_roots to checkout
 {%- for repo, conf in install_list.items() %}

@@ -29,6 +29,13 @@ salt-roots:
         - file: salt-roots
         - pkg: git
 
+# symlink /srv/salt-active to the "active" file_roots
+symlink-srv-salt-active-to-git-root:
+  file.symlink:
+    # note the lack of a trailing slash on the symlink name is intentional
+    - name: /srv/salt-active
+    # point the symlink at salt's file_roots path for deb pkg installed
+    - target: {{ roots_root }}
 
 # iterate over creating master.d and minion.d in /etc/salt/
 {%- for m in 'master', 'minion' %}

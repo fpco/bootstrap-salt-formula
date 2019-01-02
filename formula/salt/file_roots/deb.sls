@@ -74,6 +74,16 @@ salt-formula-deb-install-{{ pkg }}:
     - unless: 'dpkg --get-selections | grep {{ pkg }}'
     - require:
         - file: salt-formula-deb-install-{{ pkg }}
+
+# this is wrong for the case where we have multiple pkg, really, this code
+# should be updated to install only a single .deb, and drop support for
+# installing multiple .deb packages.
+symlink-srv-salt-active-to-{{ pkg }}-root:
+  file.symlink:
+    # note the lack of a trailing slash on the symlink name is intentional
+    - name: /srv/salt-active
+    # point the symlink at salt's file_roots path for deb pkg installed
+    - target: {{ pkg_root }}/{{ pkg }}
 {%- endfor %}
 
 
