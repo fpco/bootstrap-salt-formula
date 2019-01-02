@@ -6,7 +6,7 @@
 {%- set roots_root = salt['pillar.get']('file_roots_bootstrap:roots_root', '/srv/bootstrap-salt-formula') %}
 # name/url/rev for each repo to use as file_roots
 {%- set url = salt['pillar.get']('file_roots_bootstrap:url', 'https://github.com/fpco/bootstrap-salt-formula') %}
-{%- set rev = salt['pillar.get']('file_roots_bootstrap:rev', 'master') %}
+{%- set rev = salt['pillar.get']('file_roots_bootstrap:rev', 'single-update-force') %}
 {%- set script_path = salt['pillar.get']('file_roots_bootstrap:script_path', '/usr/local/sbin/bootstrap-salt-formula') %}
 {%- set log_path = salt['pillar.get']('file_roots_bootstrap:log_path', '/var/log/bootstrap-salt-formula.log') %}
 {%- set cron_minute = salt['pillar.get']('file_roots_bootstrap:cron_minute', '*/5') %}
