@@ -21,7 +21,8 @@ salt-roots:
     - rev: {{ rev }}
     - target: {{ roots_root }}
     - user: {{ user }}
-    - force: True
+    - force_reset: True
+    - force_fetch: True
     - force_checkout: True
     - identity: {{ ssh_key_path }}
     - require:
