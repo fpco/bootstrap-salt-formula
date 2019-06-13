@@ -9,6 +9,7 @@
 {%- set rev = salt['pillar.get']('file_roots_bootstrap:rev', 'master') %}
 {%- set script_path = salt['pillar.get']('file_roots_bootstrap:script_path', '/usr/local/sbin/bootstrap-salt-formula') %}
 {%- set log_path = salt['pillar.get']('file_roots_bootstrap:log_path', '/var/log/bootstrap-salt-formula.log') %}
+{%- set install_cron = salt['pillar.get']('file_roots_bootstrap:install_cron', True) %}
 {%- set cron_minute = salt['pillar.get']('file_roots_bootstrap:cron_minute', '*/5') %}
 {%- set cron_hour = salt['pillar.get']('file_roots_bootstrap:hour', '*') %}
 
@@ -69,6 +70,7 @@ install-salt-formula-bootstrap-formula:
     - name: 'echo "use {{ script_path }} to run the file_roots bootstrap formula"'
     - require:
         - file: install-salt-formula-bootstrap-formula
+  {%- if install_cron %}
   cron.present:
     - name: '{{ script_path }} > {{ log_path }} 2>&1'
     - user: root
@@ -80,6 +82,7 @@ install-salt-formula-bootstrap-formula:
         - file: install-salt-formula-bootstrap-formula
         - cron: root-cron-env-var-PATH
         - cron: root-cron-env-var-SHELL
+  {%- endif %}
 
 # this formula expects PATH to be set in root's cronttab, and might as well set SHELL
 # these can be changed by other formula later.
