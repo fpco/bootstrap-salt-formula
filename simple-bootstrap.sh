@@ -2,10 +2,14 @@
 
 set -eux
 
+#########
+# Parameters
+SALT_VERSION=${SALT_VERSION:-2018.3}
+
 ##########
 # Step 1: Install Saltstack and git
 wget -O bootstrap-salt.sh https://bootstrap.saltstack.com
-sh bootstrap-salt.sh
+sh bootstrap-salt.sh stable ${SALT_VERSION}
 # disable the service until configured
 service salt-minion stop
 # the bootstrap formula might need git installed..
