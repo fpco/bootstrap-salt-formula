@@ -9,7 +9,7 @@
 {%- set rev = salt['pillar.get']('file_roots_bootstrap:rev', 'master') %}
 {%- set script_path = salt['pillar.get']('file_roots_bootstrap:script_path', '/usr/local/sbin/bootstrap-salt-formula') %}
 {%- set log_path = salt['pillar.get']('file_roots_bootstrap:log_path', '/var/log/bootstrap-salt-formula.log') %}
-{%- set install_cron = salt['pillar.get']('file_roots_bootstrap:install_cron', True) %}
+{%- set install_cron = salt['pillar.get']('file_roots_bootstrap:install_cron', False) %}
 {%- set cron_minute = salt['pillar.get']('file_roots_bootstrap:cron_minute', '*/5') %}
 {%- set cron_hour = salt['pillar.get']('file_roots_bootstrap:hour', '*') %}
 
