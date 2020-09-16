@@ -4,7 +4,7 @@ set -eux
 
 #########
 # Parameters
-SALT_VERSION=${SALT_VERSION:-2018.3}
+SALT_VERSION=${SALT_VERSION:-2019.2}
 
 ##########
 # Step 1: Install Saltstack and git
